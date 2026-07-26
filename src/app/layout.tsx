@@ -1,0 +1,96 @@
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { siteConfig } from "@/lib/site";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s — ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [
+    "ethical finance",
+    "asset-backed finance",
+    "vehicle finance",
+    "car finance",
+    "motorcycle finance",
+    "boat finance",
+    "fractional ownership",
+    "islamic finance",
+    "sharia compliant finance",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#060b16" },
+  ],
+};
+
+/**
+ * Applies the saved theme before first paint so there is no flash of the
+ * wrong palette. Deliberately tiny and dependency-free.
+ */
+const themeScript = `
+(function(){try{
+  var stored = localStorage.getItem('theme');
+  var dark = stored ? stored === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.classList.toggle('dark', dark);
+  document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+}catch(e){}})();
+`;
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-surface-inverse focus:px-5 focus:py-3 focus:text-sm focus:text-foreground-inverse"
+        >
+          Skip to content
+        </a>
+        <div className="flex min-h-dvh flex-col">
+          <Navbar />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}

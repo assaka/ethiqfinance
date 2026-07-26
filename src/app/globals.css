@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* Dark mode is class-driven so visitors can override the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Surfaces */
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --surface-inverse: #0f172a;
+
+  /* Text */
+  --foreground: #0f172a;
+  --foreground-muted: #475569;
+  --foreground-subtle: #64748b;
+  --foreground-inverse: #f8fafc;
+
+  /* Lines */
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Brand */
+  --navy: #0f172a;
+  --accent: #10b981; /* fills and graphics */
+  --accent-strong: #047857; /* accessible accent text on light surfaces */
+  --accent-soft: #ecfdf5;
+  --accent-contrast: #ffffff;
+
+  /* Elevation */
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 24px 48px -20px rgb(15 23 42 / 0.22);
+}
+
+.dark {
+  --background: #060b16;
+  --surface: #0f172a;
+  --surface-muted: #111c33;
+  --surface-inverse: #f8fafc;
+
+  --foreground: #f1f5f9;
+  --foreground-muted: #a3b1c6;
+  --foreground-subtle: #8595ad;
+  --foreground-inverse: #0f172a;
+
+  --border: #1e293b;
+  --border-strong: #334155;
+
+  --navy: #0f172a;
+  --accent: #10b981;
+  --accent-strong: #34d399; /* accessible accent text on dark surfaces */
+  --accent-soft: #072a20;
+  --accent-contrast: #04231a;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 48px -20px rgb(0 0 0 / 0.75);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-inverse: var(--surface-inverse);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-inverse: var(--foreground-inverse);
+
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+
+  --color-navy: var(--navy);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor targets so the sticky header never covers a heading. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--accent) 26%, transparent);
+  }
+}
+
+@layer utilities {
+  .text-eyebrow {
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Very soft brand wash used behind the hero and CTA bands. */
+  .bg-mesh {
+    background-image:
+      radial-gradient(60rem 32rem at 78% -10%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 60%),
+      radial-gradient(48rem 28rem at 8% 0%, color-mix(in oklab, var(--navy) 10%, transparent), transparent 62%);
+  }
+
+  .dark .bg-mesh {
+    background-image:
+      radial-gradient(60rem 32rem at 78% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
+      radial-gradient(48rem 28rem at 8% 0%, color-mix(in oklab, #3b82f6 14%, transparent), transparent 62%);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--border) 70%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--border) 70%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(42rem 26rem at 50% 20%, #000 20%, transparent 78%);
+  }
+
+  /* Keeps stat columns from jittering while numbers animate. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
