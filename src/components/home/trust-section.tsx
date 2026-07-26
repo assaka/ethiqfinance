@@ -6,6 +6,8 @@ import { trustPillars } from "@/lib/content";
 export function TrustSection() {
   return (
     <Section size="wide" className="pt-16 sm:pt-20">
+      {/* The cards carry the message visually; the heading keeps the outline intact. */}
+      <h2 className="sr-only">What this means in practice</h2>
       <ul className="grid gap-6 md:grid-cols-3">
         {trustPillars.map((pillar, i) => {
           const Icon = pillar.icon;

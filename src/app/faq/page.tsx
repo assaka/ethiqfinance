@@ -38,6 +38,7 @@ export default function FaqPage() {
       />
 
       <Section>
+        <h2 className="sr-only">All questions</h2>
         <Reveal>
           <Accordion items={faqs} defaultOpen={null} />
         </Reveal>

@@ -75,6 +75,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/*
+          Scroll-reveal elements are server-rendered at opacity:0 and revealed by
+          Framer Motion. Without JS that would leave a blank page, so unhide them.
+        */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              '<style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style>',
+          }}
+        />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <a
