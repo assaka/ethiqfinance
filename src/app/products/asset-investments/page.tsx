@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { Accordion } from "@/components/ui/accordion";
 import { DashboardPreview } from "@/components/home/dashboard-preview";
 import { CapitalSafeguards } from "@/components/home/capital-safeguards";
+import { RiskReturn } from "@/components/structure/risk-return";
 import { CtaBand } from "@/components/home/cta-band";
 import { products } from "@/lib/content";
 
@@ -183,6 +184,8 @@ export default function AssetInvestmentsPage() {
           ))}
         </ol>
       </Section>
+
+      <RiskReturn />
 
       <DashboardPreview />
 

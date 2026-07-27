@@ -9,6 +9,7 @@ import { OwnershipChart } from "@/components/structure/ownership-chart";
 import { PaymentChart } from "@/components/structure/payment-chart";
 import { CapitalSafeguards } from "@/components/home/capital-safeguards";
 import { ExampleScenarios } from "@/components/examples/example-scenarios";
+import { RiskReturn } from "@/components/structure/risk-return";
 import { CtaBand } from "@/components/home/cta-band";
 import {
   contracts,
@@ -194,6 +195,9 @@ export default function StructurePage() {
       </Section>
 
       <ExampleScenarios />
+
+      {/* ---------------------------------------------------------------- */}
+      <RiskReturn />
 
       {/* ---------------------------------------------------------------- */}
       <CapitalSafeguards />

@@ -241,6 +241,20 @@ export const example = {
    * the customer is never billed for it separately.
    */
   annualRunningCost: 2885,
+  /** Share of rent Ethiq retains as a management fee for servicing the SPV. */
+  managementFee: 0.2,
+  /**
+   * Illustrative retained value of a mainstream car, as a fraction of its
+   * purchase price. Used only to show what an early exit recovers — resale
+   * values vary by model, mileage and condition.
+   */
+  depreciationCurve: [
+    { month: 0, retained: 1.0 },
+    { month: 12, retained: 0.75 },
+    { month: 24, retained: 0.61 },
+    { month: 36, retained: 0.51 },
+    { month: 48, retained: 0.44 },
+  ],
 };
 
 export const structureStages = [

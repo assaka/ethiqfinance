@@ -120,3 +120,71 @@ export function paymentMilestones(t: Terms = defaultTerms): ScheduleRow[] {
     .filter((m) => m <= t.termMonths)
     .map((m) => rows[m - 1]);
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Investor projections                                                      */
+/* -------------------------------------------------------------------------- */
+
+/** The rate reaching investors once the management fee is taken from rent. */
+export function netInvestorRate(t: Terms = defaultTerms): number {
+  return t.rate * (1 - example.managementFee);
+}
+
+export type WealthPoint = {
+  month: number;
+  /** Capital returned each month sits idle — income comes from one asset only. */
+  idle: number;
+  /** Returned capital is redeployed; income is taken as cash. */
+  redeployed: number;
+  /** Both capital and income are redeployed, so the balance compounds. */
+  compounded: number;
+};
+
+/**
+ * What €1,000 does over the term under three reinvestment behaviours.
+ * The point of the comparison: capital comes back monthly, so leaving it idle
+ * roughly halves the return — the headline rate assumes it stays at work.
+ */
+export function wealthPaths(amount = 1000, t: Terms = defaultTerms): WealthPoint[] {
+  const rows = schedule(t);
+  const stake = amount / spvStake(t);
+  const net = netInvestorRate(t);
+  const monthly = net / 12;
+
+  let idleIncome = 0;
+  const points: WealthPoint[] = [{ month: 0, idle: amount, redeployed: amount, compounded: amount }];
+
+  rows.forEach((row, i) => {
+    const month = i + 1;
+    idleIncome += row.rent * (1 - example.managementFee) * stake;
+    points.push({
+      month,
+      idle: amount + idleIncome,
+      redeployed: amount + amount * monthly * month,
+      compounded: amount * Math.pow(1 + monthly, month),
+    });
+  });
+
+  return points;
+}
+
+/**
+ * On an early exit the vehicle is sold and proceeds split by ownership share.
+ * Because each owner's share equals their outstanding capital divided by the
+ * original price, both sides recover exactly the vehicle's retained-value
+ * percentage — the loss is shared, never transferred to the customer.
+ */
+export function earlyExitRecovery(t: Terms = defaultTerms) {
+  const rows = schedule(t);
+  return example.depreciationCurve.map(({ month, retained }) => {
+    const balance = month === 0 ? spvStake(t) : rows[month - 1].balance;
+    return {
+      month,
+      retained,
+      vehicleValue: t.price * retained,
+      outstanding: balance,
+      recovered: balance * retained,
+      shortfall: balance * (1 - retained),
+    };
+  });
+}
