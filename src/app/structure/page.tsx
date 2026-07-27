@@ -122,8 +122,8 @@ export default function StructurePage() {
             <Card className="h-full">
               <h3 className="text-lg font-semibold">What you pay each month</h3>
               <p className="mt-2 text-[0.9375rem] text-foreground-muted">
-                The total never changes. Inside it, the rent shrinks with our share and the
-                ownership portion grows to fill the gap.
+                The total never changes. Inside it, running costs stay flat, the rent shrinks
+                with our share, and the ownership portion grows to fill the gap.
               </p>
               <div className="mt-7">
                 <PaymentChart />

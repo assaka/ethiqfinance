@@ -81,7 +81,7 @@ export const products: Product[] = [
     cta: "Learn more",
     points: [
       "Co-ownership from day one — your share is real, not promised",
-      "Monthly payment split transparently into rent and ownership",
+      "Takaful, road tax and servicing included — one all-in payment",
       "One fixed monthly payment for the entire term",
       "Exit any time by valuation — no interest, no break fee",
     ],
@@ -235,6 +235,12 @@ export const example = {
   termMonths: 48,
   /** Annual rental rate applied to the SPV's outstanding share value. */
   rentalRate: 0.0625,
+  /**
+   * Annual running cost carried by the owners — takaful, road tax, servicing,
+   * tyres and inspection. Funded by the service component of the payment, so
+   * the customer is never billed for it separately.
+   */
+  annualRunningCost: 2885,
 };
 
 export const structureStages = [
@@ -267,10 +273,9 @@ export const structureStages = [
 /**
  * Who carries which cost or risk, and why.
  *
- * The classical Ijarah split: ownership risks — the ones tied to holding the
- * asset rather than using it — stay with the owners, while the running costs
- * of a vehicle in daily use sit with the person driving it. See the `example`
- * rental rate: rent is priced to reward capital, not to fund a service package.
+ * Running and ownership expenses both sit with the owners, funded by the
+ * service component of the payment. Only the costs the driver personally
+ * creates — fuel, fines, misuse — fall outside the fixed monthly amount.
  */
 export const riskAllocation = [
   {
@@ -295,18 +300,18 @@ export const riskAllocation = [
   },
   {
     item: "Takaful / insurance cover",
-    bearer: "customer" as const,
-    detail: "Arranged through us at fleet rates, held in the owners' interest and paid by you as the user.",
+    bearer: "shared" as const,
+    detail: "An ownership expense, arranged by us at fleet rates and covered by your service component.",
   },
   {
     item: "Servicing, maintenance and tyres",
-    bearer: "customer" as const,
-    detail: "Day-to-day upkeep of a vehicle in your hands, set out in the service agreement.",
+    bearer: "shared" as const,
+    detail: "A running expense of the asset, so the owners carry it — never billed on top of your payment.",
   },
   {
     item: "Road tax and periodic inspection",
-    bearer: "customer" as const,
-    detail: "A cost of keeping the vehicle on the road, which is what you are using it for.",
+    bearer: "shared" as const,
+    detail: "Attached to the vehicle rather than the driver, so it follows ownership.",
   },
   {
     item: "Fuel, charging and consumables",
@@ -337,6 +342,8 @@ export type CustomerScenario = {
   price: number;
   customerShare: number;
   termMonths: number;
+  /** Annual running cost of this vehicle, carried by the owners. */
+  runningCost: number;
   note: string;
   icon: typeof Car;
 };
@@ -349,6 +356,7 @@ export const customerScenarios: CustomerScenario[] = [
     price: 18000,
     customerShare: 20,
     termMonths: 36,
+    runningCost: 1950,
     note: "Wanted a reliable commuter car without a loan hanging over her.",
     icon: Car,
   },
@@ -359,6 +367,7 @@ export const customerScenarios: CustomerScenario[] = [
     price: 9500,
     customerShare: 20,
     termMonths: 24,
+    runningCost: 1020,
     note: "Short term, small ticket — owns it outright in two years.",
     icon: Bike,
   },
@@ -369,6 +378,7 @@ export const customerScenarios: CustomerScenario[] = [
     price: 65000,
     customerShare: 25,
     termMonths: 60,
+    runningCost: 5000,
     note: "A larger contribution up front to keep the monthly payment down.",
     icon: Sailboat,
   },
@@ -379,6 +389,7 @@ export const customerScenarios: CustomerScenario[] = [
     price: 34000,
     customerShare: 20,
     termMonths: 48,
+    runningCost: 2400,
     note: "A working van for a two-person plumbing business.",
     icon: Truck,
   },

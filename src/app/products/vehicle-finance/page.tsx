@@ -16,7 +16,7 @@ const product = products[0];
 export const metadata: Metadata = {
   title: "Vehicle Finance",
   description:
-    "Buy your car, motorcycle or boat jointly with us and buy out our share month by month. Co-ownership from day one, one fixed monthly payment, no interest and no penalties.",
+    "Buy your car, motorcycle or boat jointly with us and buy out our share month by month. Co-ownership from day one, one fixed all-in monthly payment including takaful, road tax and servicing, no interest and no penalties.",
   alternates: { canonical: "/products/vehicle-finance" },
 };
 
@@ -47,6 +47,7 @@ const comparison = [
   { point: "Your position on day one", traditional: "A debtor with a liability", ethiq: "A registered co-owner with equity" },
   { point: "Cost structure", traditional: "Interest on outstanding debt", ethiq: "Rent on the share you don't yet own" },
   { point: "How payments change", traditional: "Fixed or rising with rates", ethiq: "Fixed — but buys more ownership each month" },
+  { point: "Running costs", traditional: "Billed to you on top", ethiq: "Included in the fixed payment" },
   { point: "Who carries ownership risk", traditional: "You, entirely", ethiq: "Both owners, in proportion to shares" },
   { point: "Early settlement", traditional: "Break fees are common", ethiq: "Valuation and buy-out, no penalty" },
 ];
@@ -69,7 +70,7 @@ const faqs = [
   {
     question: "Who insures and maintains the vehicle?",
     answer:
-      "Takaful is arranged through us at fleet rates and held in the owners' interest, but paid by you as the user — along with servicing, road tax, fuel, fines and any damage through misuse. Faults in the asset itself, and the risk of write-off or depreciation, stay with the owners.",
+      "We do. Takaful, road tax, servicing, tyres and inspection are ownership expenses carried by the owners and funded through the running-cost component of your fixed payment — so they are never billed on top. You cover fuel, fines and any damage through misuse.",
   },
   {
     question: "What if the vehicle is written off?",

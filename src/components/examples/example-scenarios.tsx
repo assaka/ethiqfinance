@@ -1,4 +1,4 @@
-import { ArrowRight, Coins, TrendingDown, Wallet } from "lucide-react";
+import { Coins, TrendingDown, Wallet } from "lucide-react";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Card, Badge, IconBadge } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/reveal";
@@ -17,6 +17,7 @@ const termsFor = (s: (typeof customerScenarios)[number]): Terms => ({
   customerShare: s.customerShare,
   termMonths: s.termMonths,
   rate: example.rentalRate,
+  runningCost: s.runningCost,
 });
 
 const euro = (n: number) => formatCurrency(Math.round(n));
@@ -40,8 +41,9 @@ export function ExampleScenarios() {
         <Reveal>
           <h3 className="text-xl font-semibold sm:text-2xl">If you&apos;re financing a vehicle</h3>
           <p className="mt-2 max-w-2xl text-[0.9375rem] text-foreground-muted">
-            One fixed payment covers the rent on our share and buys that share down. Running
-            costs — takaful, servicing, road tax and fuel — sit with you as the user.
+            One fixed payment covers everything: rent on our share, the purchase of that share,
+            and the running costs — takaful, road tax, servicing and tyres. You buy the fuel;
+            nothing else is billed on top.
           </p>
         </Reveal>
 
@@ -76,27 +78,42 @@ export function ExampleScenarios() {
                       sub={`${scenario.customerShare}% owned on day one`}
                     />
                     <Cell label="Term" value={`${scenario.termMonths} months`} />
-                    <Cell label="Fixed monthly" value={euro(payment)} accent />
+                    <Cell
+                      label="Fixed monthly, all-in"
+                      value={euro(payment)}
+                      sub={`incl. ${euro(scenario.runningCost / 12)} running costs`}
+                      accent
+                    />
                   </dl>
 
                   <div className="mt-5 space-y-2 text-sm text-foreground-muted">
                     {/* Rent is rounded and ownership absorbs the remainder, so both
                         lines always sum to the fixed payment shown above. */}
                     <Split
-                      label="Month 1 splits into"
+                      label="Month 1"
                       rent={Math.round(rows[0].rent)}
-                      equity={Math.round(payment) - Math.round(rows[0].rent)}
+                      service={Math.round(rows[0].service)}
+                      equity={
+                        Math.round(payment) -
+                        Math.round(rows[0].rent) -
+                        Math.round(rows[0].service)
+                      }
                     />
                     <Split
-                      label={`Month ${scenario.termMonths} splits into`}
+                      label={`Month ${scenario.termMonths}`}
                       rent={Math.round(rows[rows.length - 1].rent)}
-                      equity={Math.round(payment) - Math.round(rows[rows.length - 1].rent)}
+                      service={Math.round(rows[rows.length - 1].service)}
+                      equity={
+                        Math.round(payment) -
+                        Math.round(rows[rows.length - 1].rent) -
+                        Math.round(rows[rows.length - 1].service)
+                      }
                     />
                   </div>
 
                   <p className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-sm font-medium text-accent-strong">
                     <TrendingDown className="h-4 w-4" aria-hidden="true" />
-                    Same payment throughout — more of it becomes yours each month
+                    Same all-in payment throughout — more of it becomes yours each month
                   </p>
                 </Card>
               </Reveal>
@@ -152,7 +169,7 @@ export function ExampleScenarios() {
                     />
                     <Cell
                       label="Month 1 payout"
-                      value={euro(firstMonth.total * stake)}
+                      value={euro((firstMonth.rent + firstMonth.equity) * stake)}
                       sub={`${euro(firstMonth.rent * stake)} income · ${euro(firstMonth.equity * stake)} capital`}
                     />
                     <Cell
@@ -180,9 +197,10 @@ export function ExampleScenarios() {
             promises.</strong>{" "}
             They show what the structure produces when a customer pays on schedule for the full
             term. Income falls if a customer stops paying, if an asset is off the road, or if a
-            partnership ends early and the vehicle sells for less than expected. Returns depend on
-            actual asset performance and your capital is at risk. Figures are shown gross of
-            platform fees.
+            partnership ends early and the vehicle sells for less than expected. Because running
+            costs are carried by the owners, a year of unusually heavy repairs also reduces what
+            reaches shareholders. Returns depend on actual asset performance and your capital is
+            at risk. Figures are shown gross of the management fee.
           </p>
         </Reveal>
       </div>
@@ -218,27 +236,36 @@ function Cell({
   );
 }
 
-function Split({ label, rent, equity }: { label: string; rent: number; equity: number }) {
+function Split({
+  label,
+  rent,
+  service,
+  equity,
+}: {
+  label: string;
+  rent: number;
+  service: number;
+  equity: number;
+}) {
   return (
-    <p className="flex flex-wrap items-center gap-x-2">
+    <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
       <span className="text-foreground-subtle">{label}</span>
-      <span className="tabular inline-flex items-center gap-1.5 font-medium text-foreground">
-        <span
-          aria-hidden="true"
-          className="inline-block h-2 w-2 rounded-full"
-          style={{ backgroundColor: "var(--chart-2)" }}
-        />
-        {euro(rent)} rent
-      </span>
-      <ArrowRight className="h-3 w-3 text-foreground-subtle" aria-hidden="true" />
-      <span className="tabular inline-flex items-center gap-1.5 font-medium text-foreground">
-        <span
-          aria-hidden="true"
-          className="inline-block h-2 w-2 rounded-full"
-          style={{ backgroundColor: "var(--chart-1)" }}
-        />
-        {euro(equity)} ownership
-      </span>
+      <Part color="var(--chart-2)" value={rent} label="rent" />
+      <Part color="var(--chart-3)" value={service} label="running" />
+      <Part color="var(--chart-1)" value={equity} label="ownership" />
     </p>
+  );
+}
+
+function Part({ color, value, label }: { color: string; value: number; label: string }) {
+  return (
+    <span className="tabular inline-flex items-center gap-1.5 font-medium text-foreground">
+      <span
+        aria-hidden="true"
+        className="inline-block h-2 w-2 rounded-full"
+        style={{ backgroundColor: color }}
+      />
+      {euro(value)} {label}
+    </span>
   );
 }

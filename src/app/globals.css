@@ -29,8 +29,9 @@
 
   /* Chart series — validated for CVD separation and contrast against the
      surface in both modes. Do not substitute by eye. */
-  --chart-1: #10b981; /* the customer's share */
-  --chart-2: #6366f1; /* the SPV's share */
+  --chart-1: #10b981; /* the customer's share / ownership */
+  --chart-2: #6366f1; /* the SPV's share / rent */
+  --chart-3: #f59e0b; /* running costs (service charge) */
 
   /* Elevation */
   --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
@@ -60,6 +61,7 @@
   /* Re-stepped for the dark surface, not flipped. */
   --chart-1: #0ea97a;
   --chart-2: #6366f1;
+  --chart-3: #d97706;
 
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
   --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 48px -20px rgb(0 0 0 / 0.75);
@@ -87,6 +89,7 @@
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 

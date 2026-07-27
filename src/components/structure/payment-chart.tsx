@@ -14,7 +14,8 @@ const euro = (n: number) => `€${n.toLocaleString("en-GB")}`;
  */
 function rounded(row: ScheduleRow, total: number) {
   const rent = Math.round(row.rent);
-  return { month: row.month, rent, equity: total - rent, total };
+  const service = Math.round(row.service);
+  return { month: row.month, rent, service, equity: total - rent - service, total };
 }
 
 /**
@@ -34,16 +35,18 @@ export function PaymentChart() {
       <figcaption className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-2">
         <LegendSwatch color="var(--chart-1)" label="Buys your ownership" />
         <LegendSwatch color="var(--chart-2)" label="Rent on our share" />
+        <LegendSwatch color="var(--chart-3)" label="Running costs" />
       </figcaption>
 
       <div
         className="flex items-end justify-between gap-3 sm:gap-6"
         role="img"
-        aria-label={`Composition of the fixed ${euro(Math.round(monthlyPayment()))} monthly payment. In month 1, ${euro(rows[0].rent)} is rent and ${euro(rows[0].equity)} buys ownership. By month ${example.termMonths} the rent has fallen to ${euro(rows[rows.length - 1].rent)} and ${euro(rows[rows.length - 1].equity)} buys ownership. The total never changes.`}
+        aria-label={`Composition of the fixed ${euro(Math.round(monthlyPayment()))} monthly payment. In month 1, ${euro(rows[0].rent)} is rent, ${euro(rows[0].service)} covers running costs and ${euro(rows[0].equity)} buys ownership. By month ${example.termMonths} the rent has fallen to ${euro(rows[rows.length - 1].rent)} and ${euro(rows[rows.length - 1].equity)} buys ownership. The total never changes.`}
       >
         {rows.map((row, i) => {
           const rentPct = (row.rent / row.total) * 100;
-          const equityPct = 100 - rentPct;
+          const servicePct = (row.service / row.total) * 100;
+          const equityPct = 100 - rentPct - servicePct;
 
           return (
             <div key={row.month} className="flex min-w-0 flex-1 flex-col items-center">
@@ -54,9 +57,9 @@ export function PaymentChart() {
               <div className="flex h-44 w-full max-w-16 flex-col justify-end sm:h-52">
                 <motion.span
                   className="w-full rounded-t-[4px]"
-                  style={{ backgroundColor: "var(--chart-2)" }}
-                  initial={{ height: reduceMotion ? `${rentPct}%` : "50%" }}
-                  whileInView={{ height: `${rentPct}%` }}
+                  style={{ backgroundColor: "var(--chart-3)" }}
+                  initial={{ height: reduceMotion ? `${servicePct}%` : "33%" }}
+                  whileInView={{ height: `${servicePct}%` }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{
                     duration: reduceMotion ? 0 : 0.7,
@@ -68,8 +71,21 @@ export function PaymentChart() {
                 <span className="h-0.5 w-full bg-surface" aria-hidden="true" />
                 <motion.span
                   className="w-full"
+                  style={{ backgroundColor: "var(--chart-2)" }}
+                  initial={{ height: reduceMotion ? `${rentPct}%` : "33%" }}
+                  whileInView={{ height: `${rentPct}%` }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.7,
+                    delay: reduceMotion ? 0 : i * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                />
+                <span className="h-0.5 w-full bg-surface" aria-hidden="true" />
+                <motion.span
+                  className="w-full"
                   style={{ backgroundColor: "var(--chart-1)" }}
-                  initial={{ height: reduceMotion ? `${equityPct}%` : "50%" }}
+                  initial={{ height: reduceMotion ? `${equityPct}%` : "34%" }}
                   whileInView={{ height: `${equityPct}%` }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{
@@ -89,14 +105,16 @@ export function PaymentChart() {
       </div>
 
       <div className="mt-8 overflow-x-auto rounded-2xl border border-line">
-        <table className="w-full min-w-[26rem] border-collapse text-left">
+        <table className="w-full min-w-[32rem] border-collapse text-left">
           <caption className="sr-only">
-            The fixed monthly payment split into rent and ownership, at milestone months
+            The fixed monthly payment split into rent, running costs and ownership, at
+            milestone months
           </caption>
           <thead>
             <tr className="border-b border-line bg-surface-muted">
               <th scope="col" className="px-4 py-3 text-xs font-semibold">Month</th>
               <th scope="col" className="px-4 py-3 text-right text-xs font-semibold">Rent</th>
+              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold">Running</th>
               <th scope="col" className="px-4 py-3 text-right text-xs font-semibold">Ownership</th>
               <th scope="col" className="px-4 py-3 text-right text-xs font-semibold">You pay</th>
             </tr>
@@ -109,6 +127,9 @@ export function PaymentChart() {
                 </th>
                 <td className="tabular px-4 py-3 text-right text-sm text-foreground-muted">
                   {euro(row.rent)}
+                </td>
+                <td className="tabular px-4 py-3 text-right text-sm text-foreground-muted">
+                  {euro(row.service)}
                 </td>
                 <td className="tabular px-4 py-3 text-right text-sm text-foreground-muted">
                   {euro(row.equity)}
