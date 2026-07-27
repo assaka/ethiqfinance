@@ -234,7 +234,7 @@ export const example = {
   companyShare: 80,
   termMonths: 48,
   /** Annual rental rate applied to the SPV's outstanding share value. */
-  rentalRate: 0.0625,
+  rentalRate: 0.0875,
   /**
    * Annual running cost carried by the owners — takaful, road tax, servicing,
    * tyres and inspection. Funded by the service component of the payment, so
