@@ -640,10 +640,10 @@ export const testimonials = [
 ];
 
 export const stats = [
-  { value: 42, suffix: "M", prefix: "€", label: "Assets financed" },
-  { value: 3800, suffix: "+", label: "Vehicles co-owned" },
-  { value: 12, suffix: "K+", label: "Investors and customers" },
-  { value: 100, suffix: "%", label: "Of funds used to buy vehicles" },
+  { value: 42, suffix: "M", prefix: "€", label: "Financed so far" },
+  { value: 3800, suffix: "+", label: "Vehicles on the road" },
+  { value: 12, suffix: "K+", label: "Customers and investors" },
+  { value: 0, suffix: "", label: "Interest charged, ever" },
 ];
 
 /* -------------------------------------------------------------------------- */

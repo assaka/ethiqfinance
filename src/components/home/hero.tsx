@@ -24,7 +24,7 @@ export function Hero() {
 
             <Reveal delay={0.05}>
               <h1 className="mt-6 text-[2.5rem] font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.25rem]">
-                Get it now.
+                Get the car now.
                 <br /> Pay monthly.
                 <br /> <span className="text-accent-strong">Own it at the end.</span>
               </h1>
@@ -32,8 +32,8 @@ export function Hero() {
 
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground-muted sm:text-xl">
-                One fixed monthly payment for your next car, motorcycle or boat. No interest, no
-                penalties — and it&apos;s yours outright when the term ends.
+                Cars, motorcycles and boats. One fixed monthly payment — no interest, no
+                penalties — and the vehicle is yours outright when the term ends.
               </p>
             </Reveal>
 
