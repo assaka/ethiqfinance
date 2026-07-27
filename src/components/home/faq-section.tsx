@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Accordion } from "@/components/ui/accordion";
 import { Reveal } from "@/components/ui/reveal";
-import { faqs } from "@/lib/content";
+import { homeFaqs } from "@/lib/content";
 
 export function FaqSection() {
   return (
@@ -15,7 +15,7 @@ export function FaqSection() {
       />
 
       <Reveal className="mt-12">
-        <Accordion items={faqs.slice(0, 5)} />
+        <Accordion items={homeFaqs} />
       </Reveal>
 
       <Reveal className="mt-8 text-center">

@@ -29,9 +29,9 @@ export function Hero() {
 
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground-muted sm:text-xl">
-                Finance built on real assets, transparent agreements and shared ownership.
-                Whether you&apos;re financing your next vehicle or investing in income-producing
-                assets, we&apos;re building a fairer financial future.
+                Buy your next car, motorcycle or boat together with us — then buy out our share
+                month by month until it&apos;s entirely yours. One fixed payment, no interest,
+                no penalties.
               </p>
             </Reveal>
 
@@ -41,8 +41,8 @@ export function Hero() {
                   Get started
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
-                <Button href="/#how-it-works" size="lg" variant="secondary">
-                  Learn how it works
+                <Button href="/pricing" size="lg" variant="secondary">
+                  See what it costs
                 </Button>
               </div>
             </Reveal>
@@ -58,7 +58,7 @@ export function Hero() {
                 <li className="flex items-center gap-2">
                   <Sailboat className="h-4 w-4 text-accent-strong" aria-hidden="true" /> Boats
                 </li>
-                <li className="text-foreground-subtle">No interest · No hidden fees</li>
+                <li className="text-foreground-subtle">Insurance &amp; servicing included</li>
               </ul>
             </Reveal>
           </div>

@@ -5,21 +5,46 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
-import { howItWorks } from "@/lib/content";
+import { customerJourney, howItWorks, type Step } from "@/lib/content";
 
 /**
  * Four-step timeline. The connecting rail draws itself once the section
  * scrolls into view, so the sequence reads as a flow rather than a list.
  */
-export function HowItWorks() {
+type HowItWorksProps = {
+  /** `customer` is the homepage view; `investor` shows the full capital loop. */
+  variant?: "customer" | "investor";
+};
+
+const COPY = {
+  customer: {
+    steps: customerJourney,
+    eyebrow: "How it works",
+    title: "From choosing a car to owning it",
+    description:
+      "No lending and no interest. We buy the vehicle with you, you pay one fixed amount each month, and your share grows until the whole thing is yours.",
+    link: { href: "/pricing", label: "See what it would cost you" },
+  },
+  investor: {
+    steps: howItWorks,
+    eyebrow: "How it works",
+    title: "A closed loop between investors and customers",
+    description:
+      "Capital buys a real vehicle, the customer co-owns it and rents the rest, and that rental income is shared with the people who funded it.",
+    link: { href: "/structure", label: "See the full structure, with worked numbers" },
+  },
+} satisfies Record<string, { steps: Step[]; eyebrow: string; title: string; description: string; link: { href: string; label: string } }>;
+
+export function HowItWorks({ variant = "customer" }: HowItWorksProps) {
   const reduceMotion = useReducedMotion();
+  const copy = COPY[variant];
 
   return (
     <Section id="how-it-works" size="wide">
       <SectionHeading
-        eyebrow="How it works"
-        title="A closed loop between investors and customers"
-        description="No lending, no interest. Capital buys a real vehicle, the customer co-owns it and rents the rest, and that rental income is shared with the people who funded it."
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        description={copy.description}
       />
 
       <div className="relative mt-16">
@@ -52,7 +77,7 @@ export function HowItWorks() {
         </div>
 
         <ol className="relative grid gap-10 sm:gap-12 lg:grid-cols-4 lg:gap-8">
-          {howItWorks.map((step, i) => {
+          {copy.steps.map((step, i) => {
             const Icon = step.icon;
             return (
               <Reveal as="li" key={step.number} index={i} className="relative">
@@ -79,10 +104,10 @@ export function HowItWorks() {
 
       <Reveal className="mt-14 text-center">
         <Link
-          href="/structure"
+          href={copy.link.href}
           className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-foreground"
         >
-          See the full structure, with worked numbers
+          {copy.link.label}
           <ArrowRight
             className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
             aria-hidden="true"

@@ -10,8 +10,8 @@ export function ProductsSection() {
     <Section id="products" size="wide" tone="muted">
       <SectionHeading
         eyebrow="Products"
-        title="Two ways to take part"
-        description="Finance the vehicle you need, or invest in the vehicles other people lease. Both sit on the same asset-backed structure."
+        title="Finance a vehicle — or fund one"
+        description="Most people come here to finance a car, motorcycle or boat. If you would rather put capital behind those vehicles instead, you can do that too."
       />
 
       <ul className="mt-14 grid gap-6 lg:grid-cols-2">

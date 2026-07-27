@@ -33,10 +33,10 @@ export type NavItem = {
 /** Primary header navigation. */
 export const mainNav: NavItem[] = [
   { label: "Vehicle Finance", href: "/products/vehicle-finance" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "How it works", href: "/structure" },
   { label: "Invest", href: "/products/asset-investments" },
-  { label: "Structure", href: "/structure" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/faq" },
 ];
 
 export const footerNav: { title: string; items: NavItem[] }[] = [
@@ -44,6 +44,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Products",
     items: [
       { label: "Vehicle Finance", href: "/products/vehicle-finance" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Asset Investments", href: "/products/asset-investments" },
       { label: "Coming soon", href: "/#roadmap" },
     ],

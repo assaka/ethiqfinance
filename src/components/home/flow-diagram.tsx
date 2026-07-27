@@ -1,41 +1,36 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Car, Lock, RefreshCw, Users, Wallet } from "lucide-react";
+import { BadgeCheck, Car, RefreshCw, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nodes = [
   {
-    label: "Investors",
-    caption: "Fund one named vehicle",
+    label: "You put in your share",
+    caption: "Own a slice from day one",
     icon: Wallet,
   },
   {
-    label: "SPV",
-    caption: "Holds title, nothing else",
-    icon: Lock,
-  },
-  {
-    label: "Co-owned vehicle",
+    label: "We buy it together",
     caption: "Cars, motorcycles, boats",
     icon: Car,
   },
   {
-    label: "Customers",
-    caption: "Rent our share, buy it out",
-    icon: Users,
+    label: "One fixed payment",
+    caption: "Part rent, part ownership",
+    icon: RefreshCw,
   },
   {
-    label: "Monthly returns",
-    caption: "Distributed to owners",
-    icon: RefreshCw,
+    label: "It's 100% yours",
+    caption: "No final payment, ever",
+    icon: BadgeCheck,
   },
 ];
 
 /**
- * Hero illustration: capital flows from investors into real assets, assets are
- * leased to customers, and lease income returns to investors — a closed loop.
- * A light beam travels the connectors to imply continuous circulation.
+ * Hero illustration, told from the customer's side: contribution, joint
+ * purchase, one fixed payment, full ownership. The investor's view of the same
+ * cycle lives on the investment pages, where it is the relevant story.
  */
 export function FlowDiagram({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion();
@@ -47,7 +42,7 @@ export function FlowDiagram({ className }: { className?: string }) {
         className,
       )}
       role="img"
-      aria-label="How capital circulates: investors fund an SPV, the SPV co-owns a vehicle with the customer, the customer rents the SPV's share and buys it out over time, and that rental income returns to investors as monthly returns."
+      aria-label="How it works: you contribute a share and part-own the vehicle immediately, we buy it together, you pay one fixed amount each month that is part rent and part ownership, and at the end the vehicle is entirely yours."
     >
       <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-accent/[0.06] to-transparent" />
 
@@ -105,7 +100,7 @@ export function FlowDiagram({ className }: { className?: string }) {
           aria-hidden="true"
         />
         <p className="text-[0.8125rem] text-foreground-muted">
-          Returns recirculate into the next asset — ownership compounds, debt doesn&apos;t.
+          Your share grows every month — you build ownership, not debt.
         </p>
       </div>
     </div>

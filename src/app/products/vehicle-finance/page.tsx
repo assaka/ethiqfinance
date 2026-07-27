@@ -102,8 +102,8 @@ export default function VehicleFinancePage() {
             Get started
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
-          <Button href="/structure" size="lg" variant="secondary">
-            See the full structure
+          <Button href="/pricing" size="lg" variant="secondary">
+            See pricing
           </Button>
         </div>
       </PageHeader>
@@ -237,7 +237,7 @@ export default function VehicleFinancePage() {
         title="Ready to co-own your vehicle?"
         description="Tell us what you're looking for and we'll confirm the shares, the rent and the monthly payment before anything is signed."
         primary={{ label: "Start an application", href: "/contact" }}
-        secondary={{ label: "See the structure", href: "/structure" }}
+        secondary={{ label: "Compare the plans", href: "/pricing" }}
       />
     </>
   );

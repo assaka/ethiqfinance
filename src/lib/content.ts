@@ -35,13 +35,13 @@ export const trustPillars: Feature[] = [
   {
     title: "Transparent",
     description:
-      "No hidden fees. Clear agreements. Every monthly payment is split into rent and ownership, line by line.",
+      "No hidden fees and no small print. Your monthly payment is set before you sign and never changes.",
     icon: ScrollText,
   },
   {
     title: "Asset-Backed",
     description:
-      "Every euro buys a real, registered vehicle held by a dedicated Special Purpose Vehicle — never abstract debt.",
+      "Your money buys a real, registered vehicle that you part-own from day one — never abstract debt.",
     icon: ShieldCheck,
   },
   {
@@ -99,7 +99,7 @@ export const products: Product[] = [
     cta: "Explore investments",
     points: [
       "Capital is committed to a named vehicle, nothing else",
-      "Assets held by a dedicated Special Purpose Vehicle, separate from our balance sheet",
+      "Vehicles held separately from our own balance sheet",
       "Monthly distributions from real rental income",
       "Genuine risk sharing — returns follow the asset, not a promise",
     ],
@@ -183,6 +183,42 @@ export const howItWorks: Step[] = [
   },
 ];
 
+/**
+ * The consumer-facing journey for the homepage. `howItWorks` above tells the
+ * same story from the investor's side and belongs on the investor pages —
+ * someone shopping for a car does not need to know what an SPV is.
+ */
+export const customerJourney: Step[] = [
+  {
+    number: "01",
+    title: "Choose your vehicle",
+    description:
+      "Any car, motorcycle, boat or van — from a dealer, a private seller or our partner network.",
+    icon: Car,
+  },
+  {
+    number: "02",
+    title: "We buy it together",
+    description:
+      "You put in your contribution, we cover the rest. You are a registered co-owner from the day it is bought.",
+    icon: Handshake,
+  },
+  {
+    number: "03",
+    title: "One fixed payment",
+    description:
+      "The same amount every month. Part is rent on our share, part buys that share from us — and it never goes up.",
+    icon: Wallet,
+  },
+  {
+    number: "04",
+    title: "It becomes yours",
+    description:
+      "Your share grows every month until you own 100%. No balloon payment, no option fee, nothing left to settle.",
+    icon: BadgeCheck,
+  },
+];
+
 /* -------------------------------------------------------------------------- */
 /*  Capital safeguards — what funds may and may not be used for               */
 /* -------------------------------------------------------------------------- */
@@ -220,6 +256,55 @@ export const spvFacts: Feature[] = [
     icon: FileText,
   },
 ];
+
+/* -------------------------------------------------------------------------- */
+/*  Plans — finance only, or finance plus the service package                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Both plans end the same way: the customer owns the vehicle outright. The
+ * only difference is whether the running costs are bundled into the fixed
+ * payment or arranged by the customer themselves. Deliberately NOT labelled
+ * "operational lease" — in an operational lease the customer hands the
+ * vehicle back and builds no ownership at all.
+ */
+export const plans = [
+  {
+    id: "essential",
+    name: "Essential",
+    tagline: "Finance only",
+    description:
+      "The lowest monthly payment. You co-own the vehicle from day one and buy out our share month by month, and you arrange the running costs yourself.",
+    includes: [
+      "Rent on the share you don't yet own",
+      "Purchase of that share, month by month",
+      "Full ownership at the end of the term",
+    ],
+    yourResponsibility: [
+      "Takaful or insurance",
+      "Road tax",
+      "Servicing, repairs and tyres",
+      "Fuel and inspection",
+    ],
+    bestFor: "People who already have a trusted garage and insurer, or who want the lowest monthly figure.",
+  },
+  {
+    id: "complete",
+    name: "Complete",
+    tagline: "Everything included",
+    description:
+      "One payment covering the vehicle and everything it costs to keep on the road. Nothing else lands on your doormat except a fuel bill.",
+    includes: [
+      "Everything in Essential",
+      "Takaful cover, at fleet rates",
+      "Road tax and periodic inspection",
+      "Servicing, repairs and tyres",
+    ],
+    yourResponsibility: ["Fuel or charging", "Traffic fines", "Damage through misuse"],
+    bestFor: "People who want one predictable figure and no surprise bills — and protection from a bad repair year.",
+    recommended: true,
+  },
+] as const;
 
 /* -------------------------------------------------------------------------- */
 /*  Structure — Diminishing Musharakah + Ijarah                               */
@@ -519,12 +604,12 @@ export const benefits: Feature[] = [
   },
   {
     title: "Ethical",
-    description: "Built on diminishing Musharakah and Ijarah — recognised structures, open to everyone.",
+    description: "Built on internationally recognised ethical finance principles — open to everyone.",
     icon: Sparkles,
   },
   {
-    title: "Ring-Fenced",
-    description: "Assets sit in dedicated Special Purpose Vehicles and funds buy vehicles — nothing else, ever.",
+    title: "No Penalties",
+    description: "No mileage limits, no break fees and nothing to settle at the end. Leave early and we simply value the vehicle.",
     icon: Lock,
   },
 ];
@@ -617,6 +702,43 @@ export const faqs: Faq[] = [
     question: "Which vehicles can I finance?",
     answer:
       "Today we finance cars, motorcycles, boats and light commercial vehicles across the EU. Home finance, business finance and takaful are on our roadmap.",
+  },
+];
+
+/**
+ * The homepage FAQ. A shorter, plain-language subset for someone shopping for
+ * a car — the SPV and structure questions live on /faq and /structure.
+ */
+export const homeFaqs: Faq[] = [
+  {
+    question: "Is this only for Muslims?",
+    answer:
+      "No. Anyone can use our products. The structure follows Islamic finance principles, which makes it a genuinely ethical alternative for everyone — regardless of belief.",
+  },
+  {
+    question: "How is this different from a car loan?",
+    answer:
+      "A loan hands you money and charges interest on the debt. We buy the vehicle together with you, so you own a share of it from day one, and each monthly payment buys more of our share until it is all yours. There is no interest and nothing to settle at the end.",
+  },
+  {
+    question: "Will my monthly payment ever change?",
+    answer:
+      "No. The amount is fixed for the whole term. What changes is what it buys: as your ownership grows, less of the payment is rent and more of it is ownership.",
+  },
+  {
+    question: "What is included in the payment?",
+    answer:
+      "That is your choice. Our Essential plan covers the vehicle alone; our Complete plan also includes takaful cover, road tax, servicing, repairs and tyres, so the only bill left is fuel.",
+  },
+  {
+    question: "What if I want to end the agreement early?",
+    answer:
+      "The vehicle is valued and either sold or bought out, and the proceeds follow the ownership shares at that moment. There is no break fee and no penalty interest, because there is no interest to unwind.",
+  },
+  {
+    question: "Which vehicles can I finance?",
+    answer:
+      "Cars, motorcycles, boats and light commercial vehicles such as vans — new or used, from a dealer or a private seller.",
   },
 ];
 
