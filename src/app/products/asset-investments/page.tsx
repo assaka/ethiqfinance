@@ -78,6 +78,11 @@ const faqs = [
       "Purchasing the specific vehicle you invested in — and nothing else. Funds never cover our operating costs, are never lent out, are never pooled across the business and are never reinvested elsewhere. Each asset sits in a dedicated Special Purpose Vehicle whose only activity is owning and leasing it.",
   },
   {
+    question: "Is my money reinvested automatically?",
+    answer:
+      "No. Nothing is ever moved without you asking. Rent and returned capital are paid into your account each month, and it is entirely your decision whether to withdraw them or put them into another asset. Reinvesting keeps the full amount earning; leaving it in your account is perfectly fine and simply means you earn on a smaller deployed balance.",
+  },
+  {
     question: "Why does income from one asset decline over its term?",
     answer:
       "Because rent is charged only on the share the customer does not yet own, and that share shrinks every month as they buy it out. The trade-off is that your capital is progressively returned as the buy-out proceeds, rather than sitting locked until the end.",

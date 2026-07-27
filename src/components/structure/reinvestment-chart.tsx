@@ -14,9 +14,9 @@ const plotH = H - PAD.top - PAD.bottom;
 const euro = (n: number) => `€${Math.round(n).toLocaleString("en-GB")}`;
 
 const SERIES = [
-  { key: "compounded", color: "var(--chart-1)", label: "All redeployed" },
+  { key: "idle", color: "var(--chart-3)", label: "No action taken" },
   { key: "redeployed", color: "var(--chart-2)", label: "Capital redeployed" },
-  { key: "idle", color: "var(--chart-3)", label: "Left idle" },
+  { key: "compounded", color: "var(--chart-1)", label: "Everything redeployed" },
 ] as const;
 
 /**
@@ -64,7 +64,7 @@ export function ReinvestmentChart() {
         viewBox={`0 0 ${W} ${H}`}
         className="h-auto w-full"
         role="img"
-        aria-label={`Value of a €1,000 investment over ${example.termMonths} months. Left idle as capital returns it reaches ${euro(last.idle)}; with capital redeployed and income taken as cash, ${euro(last.redeployed)}; with everything redeployed it compounds to ${euro(last.compounded)}.`}
+        aria-label={`Value of a €1,000 investment over ${example.termMonths} months. If returned capital is left in your account it reaches ${euro(last.idle)}; if you redeploy the capital and take income as cash, ${euro(last.redeployed)}; if you redeploy everything it compounds to ${euro(last.compounded)}.`}
       >
         {yTicks.map((t) =>
           t <= max ? (

@@ -39,7 +39,7 @@ export function RiskReturn() {
       <SectionHeading
         eyebrow="Risk and return"
         title="Thin margin, or capital that never stops working?"
-        description={`One car produces ${euro(totalRent())} of rent on ${euro(spvStake(defaultTerms))} over four years, which looks slight. It isn't the whole picture: your capital is handed back every month, so what matters is whether it goes straight back to work.`}
+        description={`One car produces ${euro(totalRent())} of rent on ${euro(spvStake(defaultTerms))} over four years. Your capital is also handed back to you month by month as the customer buys in — so what you earn depends on what you decide to do with it as it arrives.`}
       />
 
       {/* -------------------------- reinvestment ------------------------- */}
@@ -54,9 +54,10 @@ export function RiskReturn() {
                 What {euro(1000)} does over {example.termMonths} months
               </h3>
               <p className="mt-2 text-[0.9375rem] leading-relaxed text-foreground-muted">
-                The headline {pct(net)} is the rate on capital <em>while it is deployed</em>.
-                Because a slice comes back every month, leaving it idle roughly halves what you
-                earn. Rolling it straight into the next vehicle keeps the full amount working.
+                {pct(net)} is the rate on capital <em>while it is deployed</em>, and a slice of
+                yours is repaid every month. Nothing is reinvested automatically — the money
+                lands in your account and stays there unless you choose to put it into another
+                asset. That decision, not the rate, is what separates these three outcomes.
               </p>
             </div>
           </div>
@@ -68,19 +69,19 @@ export function RiskReturn() {
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
             <Outcome
               color="var(--chart-3)"
-              label="Left idle as it returns"
+              label="If you take no action"
               value={euro(final.idle - 1000)}
-              detail={`${pct((final.idle - 1000) / 1000 / 4)} a year on the original amount`}
+              detail={`${pct((final.idle - 1000) / 1000 / 4)} a year on the original amount — the baseline if returns sit in your account`}
             />
             <Outcome
               color="var(--chart-2)"
-              label="Capital redeployed, income taken"
+              label="If you redeploy capital only"
               value={euro(final.redeployed - 1000)}
               detail={`The full ${pct(net)} a year, drawn as cash`}
             />
             <Outcome
               color="var(--chart-1)"
-              label="Everything redeployed"
+              label="If you redeploy everything"
               value={euro(final.compounded - 1000)}
               detail={`Balance grows to ${euro(final.compounded)}`}
               accent
@@ -88,10 +89,13 @@ export function RiskReturn() {
           </ul>
 
           <p className="mt-6 rounded-xl bg-surface-muted p-5 text-[0.9375rem] leading-relaxed text-foreground-muted">
-            Reinvesting turns {euro(final.idle - 1000)} into {euro(final.compounded - 1000)} from
-            the same {euro(1000)} — <strong className="font-semibold text-foreground">roughly
-            double</strong>, without changing the rate at all. This depends on new assets being
-            available when your capital returns; if nothing is open for funding, it waits.
+            <strong className="font-semibold text-foreground">Reinvestment is always your
+            choice.</strong>{" "}
+            We never sweep returned capital into a new asset on your behalf. Choosing to redeploy
+            it turns {euro(final.idle - 1000)} into {euro(final.compounded - 1000)} from the same{" "}
+            {euro(1000)} without the rate changing at all — but it depends on an asset being open
+            for funding at the moment your money comes back. If nothing suits you, or nothing is
+            available, it simply waits, and the first figure is what you earn.
           </p>
         </Card>
       </Reveal>
