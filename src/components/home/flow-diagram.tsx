@@ -1,23 +1,28 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Car, RefreshCw, Users, Wallet } from "lucide-react";
+import { Car, Lock, RefreshCw, Users, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nodes = [
   {
     label: "Investors",
-    caption: "Fund a specific asset",
+    caption: "Fund one named vehicle",
     icon: Wallet,
   },
   {
-    label: "Assets",
+    label: "SPV",
+    caption: "Holds title, nothing else",
+    icon: Lock,
+  },
+  {
+    label: "Co-owned vehicle",
     caption: "Cars, motorcycles, boats",
     icon: Car,
   },
   {
     label: "Customers",
-    caption: "Lease on fixed terms",
+    caption: "Rent our share, buy it out",
     icon: Users,
   },
   {
@@ -42,7 +47,7 @@ export function FlowDiagram({ className }: { className?: string }) {
         className,
       )}
       role="img"
-      aria-label="How capital circulates: investors fund assets, assets are leased to customers, lease income returns to investors as monthly returns."
+      aria-label="How capital circulates: investors fund an SPV, the SPV co-owns a vehicle with the customer, the customer rents the SPV's share and buys it out over time, and that rental income returns to investors as monthly returns."
     >
       <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-accent/[0.06] to-transparent" />
 

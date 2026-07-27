@@ -7,9 +7,11 @@ import {
   Coins,
   FileText,
   Gauge,
+  Handshake,
   HeartHandshake,
   House,
   Landmark,
+  Lock,
   Sailboat,
   ScrollText,
   ShieldCheck,
@@ -33,19 +35,19 @@ export const trustPillars: Feature[] = [
   {
     title: "Transparent",
     description:
-      "No hidden fees. Clear agreements. Simple pricing you can read in a single sitting.",
+      "No hidden fees. Clear agreements. Every monthly payment is split into rent and ownership, line by line.",
     icon: ScrollText,
   },
   {
     title: "Asset-Backed",
     description:
-      "Every investment is linked to a real, registered asset — never to abstract debt.",
+      "Every euro buys a real, registered vehicle held by a dedicated SPV — never abstract debt.",
     icon: ShieldCheck,
   },
   {
     title: "Ethical",
     description:
-      "Designed around fairness, responsibility and long-term value for both sides of the agreement.",
+      "Genuine co-ownership: we carry ownership risk alongside you for as long as we hold a share.",
     icon: HeartHandshake,
   },
 ];
@@ -72,16 +74,16 @@ export const products: Product[] = [
     eyebrow: "Available now",
     title: "Vehicle Finance",
     summary:
-      "Ethical financing for cars, motorcycles and boats through shared ownership rather than traditional lending.",
+      "Buy your car, motorcycle or boat together with us — then buy out our share month by month until you own all of it.",
     description:
-      "We buy the vehicle you choose and lease it to you on a fixed, transparent agreement. Every payment moves you closer to full ownership — with no interest, no compounding and no penalty spiral.",
+      "We purchase the vehicle jointly with you. You own your share from day one, we lease you ours, and each monthly payment buys a slice of our share. As our stake shrinks, so does the rent — until you own 100%.",
     href: "/products/vehicle-finance",
     cta: "Learn more",
     points: [
-      "Cars, motorcycles, boats and light commercial vehicles",
-      "One fixed monthly amount, agreed up front",
-      "Ownership transfers to you at the end of the term",
-      "Settle early at any point without penalty fees",
+      "Co-ownership from day one — your share is real, not promised",
+      "Monthly payment split transparently into rent and ownership",
+      "Rent falls every month as our share shrinks",
+      "Exit any time by valuation — no interest, no break fee",
     ],
     icon: Car,
   },
@@ -90,16 +92,16 @@ export const products: Product[] = [
     eyebrow: "Available now",
     title: "Asset Investments",
     summary:
-      "Own fractions of income-producing vehicles and receive monthly distributions from leasing income.",
+      "Fund the vehicles behind those partnerships and share in the rental income they generate.",
     description:
-      "Invest alongside others in a portfolio of leased cars, motorcycles and boats. You hold a real ownership share, and lease income is distributed to owners every month in proportion to that share.",
+      "Investors fund an SPV that co-owns income-producing vehicles. Rental income from the leased share is distributed to investors monthly, in proportion to their stake — and investors share the ownership risks too.",
     href: "/products/asset-investments",
     cta: "Explore investments",
     points: [
-      "Fractional ownership from €250 per asset",
-      "Monthly distributions from real lease income",
-      "Full visibility of every asset in your portfolio",
-      "Returns depend on actual asset performance",
+      "Capital is committed to a named vehicle, nothing else",
+      "Assets held by a dedicated SPV, separate from our balance sheet",
+      "Monthly distributions from real rental income",
+      "Genuine risk sharing — returns follow the asset, not a promise",
     ],
     icon: Coins,
   },
@@ -153,32 +155,182 @@ export type Step = {
 export const howItWorks: Step[] = [
   {
     number: "01",
-    title: "Investors fund real assets",
+    title: "Investors fund the SPV",
     description:
-      "Investors pool capital to purchase a specific vehicle — a car, motorcycle or boat — that has already been matched to a customer.",
+      "Capital is committed to a named vehicle and held by a dedicated SPV. It is never used for anything else.",
     icon: Wallet,
   },
   {
     number: "02",
-    title: "Assets are leased to customers",
+    title: "The vehicle is bought jointly",
     description:
-      "The vehicle is leased to the customer on a fixed-term agreement with clear, unchanging monthly payments.",
+      "The customer contributes their share and the SPV contributes the rest. Both become real co-owners from day one.",
+    icon: Handshake,
+  },
+  {
+    number: "03",
+    title: "The SPV's share is leased",
+    description:
+      "The customer pays rent for using the SPV's share, plus an amount that buys a slice of that share each month.",
+    icon: FileText,
+  },
+  {
+    number: "04",
+    title: "Ownership and income transfer",
+    description:
+      "Rental income is distributed to investors monthly. As the SPV's share shrinks, so does the rent — until the customer owns 100%.",
+    icon: ChartLine,
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/*  Capital safeguards — what funds may and may not be used for               */
+/* -------------------------------------------------------------------------- */
+
+export const capitalUse = {
+  does: [
+    "Purchases the specific vehicle it was committed to — and only that vehicle",
+    "Sits with the SPV that holds legal title to that asset",
+    "Earns rental income, distributed to owners every month",
+  ],
+  never: [
+    "Funds our operating costs, salaries or marketing",
+    "Is lent out, pooled across the business or reinvested elsewhere",
+    "Sits on our own balance sheet or secures our obligations",
+  ],
+};
+
+export const spvFacts: Feature[] = [
+  {
+    title: "One purpose, by constitution",
+    description:
+      "Each SPV exists to do exactly one thing: own and lease its vehicles. It has no other business and takes on no other liabilities.",
+    icon: Lock,
+  },
+  {
+    title: "Legally separate",
+    description:
+      "The SPV sits outside our operating company. The structure is designed so its assets stay with their owners independently of us.",
+    icon: Landmark,
+  },
+  {
+    title: "Recorded per asset",
+    description:
+      "Ownership shares are recorded against a named, registered vehicle — with its purchase price, lease term and income schedule.",
+    icon: FileText,
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/*  Structure — Diminishing Musharakah + Ijarah                               */
+/* -------------------------------------------------------------------------- */
+
+/** Worked example used across the structure page and the charts. */
+export const example = {
+  vehiclePrice: 40000,
+  customerContribution: 8000,
+  customerShare: 20,
+  companyContribution: 32000,
+  companyShare: 80,
+  termMonths: 48,
+  /** Annual rental rate applied to the SPV's outstanding share value. */
+  rentalRate: 0.07,
+};
+
+export const structureStages = [
+  {
+    number: "01",
+    name: "Form the partnership",
+    arabic: "Musharakah",
+    description:
+      "You and the SPV buy the vehicle together. On a €40,000 car, a €8,000 contribution makes you a 20% owner and the SPV an 80% owner. Both shares are real and proportional.",
+    icon: Handshake,
+  },
+  {
+    number: "02",
+    name: "Lease our share",
+    arabic: "Ijarah",
+    description:
+      "Because you use the whole vehicle, the SPV leases its share to you. You pay rent for the portion you don't yet own — and only for that portion.",
     icon: FileText,
   },
   {
     number: "03",
-    title: "Lease income is generated",
+    name: "Buy it out, month by month",
+    arabic: "Musharakah Mutanaqisah",
     description:
-      "Each month the customer pays their lease instalment. We handle collection, servicing and reporting.",
-    icon: ChartLine,
+      "Alongside the rent, each payment buys a slice of the SPV's share. Your ownership rises every month, the SPV's falls, and the rent falls with it — until you own 100%.",
+    icon: BadgeCheck,
+  },
+];
+
+/** Who carries which cost or risk, and why. */
+export const riskAllocation = [
+  {
+    item: "Total loss or write-off",
+    bearer: "shared" as const,
+    detail: "Borne by both owners in proportion to their shares at the time, backed by takaful cover.",
   },
   {
-    number: "04",
-    title: "Returns are distributed",
-    description:
-      "Net lease income is distributed to investors in proportion to their ownership share, every month.",
-    icon: Landmark,
+    item: "Manufacturing or structural defects",
+    bearer: "shared" as const,
+    detail: "An ownership risk, so it follows ownership shares — not automatically pushed onto the customer.",
   },
+  {
+    item: "Depreciation while we co-own",
+    bearer: "shared" as const,
+    detail: "We hold a real share, so we absorb our proportion of the fall in value.",
+  },
+  {
+    item: "Takaful / insurance cover",
+    bearer: "shared" as const,
+    detail: "Arranged by us as an ownership expense and charged in proportion to shares.",
+  },
+  {
+    item: "Fuel, charging and consumables",
+    bearer: "customer" as const,
+    detail: "Ordinary running costs of using the vehicle.",
+  },
+  {
+    item: "Routine servicing and maintenance",
+    bearer: "customer" as const,
+    detail: "Day-to-day upkeep, set out in the service agreement.",
+  },
+  {
+    item: "Traffic fines and penalties",
+    bearer: "customer" as const,
+    detail: "Attached to the driver, never to the owners.",
+  },
+  {
+    item: "Damage through negligence or misuse",
+    bearer: "customer" as const,
+    detail: "Ownership risk covers ordinary use, not avoidable harm.",
+  },
+];
+
+export const earlyExit = [
+  "The vehicle is independently valued using the method agreed at the start.",
+  "Either it is sold, or one party buys out the other's share at that valuation.",
+  "Proceeds are distributed strictly according to ownership shares at that moment.",
+  "There is no break fee and no penalty interest — there is no interest to unwind.",
+];
+
+export const contracts = [
+  { title: "Musharakah agreement", description: "Establishes the co-ownership and each party's share." },
+  { title: "Vehicle purchase agreement", description: "The joint acquisition of the asset itself." },
+  { title: "Ijarah (lease) agreement", description: "Covers the lease of the SPV's share to the customer." },
+  { title: "Undertaking to purchase", description: "A unilateral promise to acquire the remaining shares over the term." },
+  { title: "Service and maintenance agreement", description: "Sets out who does what to keep the vehicle roadworthy." },
+  { title: "Takaful arrangements", description: "Mutual cover for the asset, arranged for the owners." },
+  { title: "Default and dispute procedure", description: "Remedies based on valuation and sale, never punitive interest." },
+];
+
+/** How the fleet itself is funded — no interest-bearing borrowing. */
+export const fundingSources = [
+  { title: "Equity investors", description: "Long-term capital that shares in the profits and the risks of the business." },
+  { title: "Musharakah investors", description: "Partners funding specific assets and sharing the income they produce." },
+  { title: "Profit-sharing accounts", description: "Deposits that participate in returns rather than earning interest." },
+  { title: "Sukuk", description: "Asset-backed certificates, at the scale where they make sense.", soon: true },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -188,33 +340,33 @@ export const howItWorks: Step[] = [
 export const benefits: Feature[] = [
   {
     title: "Real Ownership",
-    description: "Every investment is backed by a tangible, registered asset you can point to.",
+    description: "You hold a genuine share in a registered vehicle from the first payment.",
     icon: BadgeCheck,
   },
   {
     title: "Transparent Pricing",
-    description: "Know exactly where your money goes. Every cost is stated before you sign.",
+    description: "Every payment is split into rent and ownership, so you always know what you bought.",
     icon: ScrollText,
   },
   {
-    title: "Shared Success",
-    description: "Finance built around partnership rather than interest on debt.",
+    title: "Shared Risk",
+    description: "We co-own the asset, so we carry ownership risk proportionally — not just the upside.",
     icon: HeartHandshake,
   },
   {
     title: "Technology First",
-    description: "A modern digital platform with real-time portfolio and payment reporting.",
+    description: "A modern platform showing your ownership percentage and payments in real time.",
     icon: Gauge,
   },
   {
     title: "Ethical",
-    description: "Built upon internationally recognised Islamic finance principles — open to everyone.",
+    description: "Built on diminishing Musharakah and Ijarah — recognised structures, open to everyone.",
     icon: Sparkles,
   },
   {
-    title: "Secure",
-    description: "Strong governance, segregated asset ownership and independent oversight.",
-    icon: ShieldCheck,
+    title: "Ring-Fenced",
+    description: "Assets sit in dedicated SPVs and funds buy vehicles — nothing else, ever.",
+    icon: Lock,
   },
 ];
 
@@ -225,19 +377,19 @@ export const benefits: Feature[] = [
 export const testimonials = [
   {
     quote:
-      "I financed my van without a single line of small print I didn't understand. One number, agreed up front, and it never moved.",
+      "I could see my ownership percentage go up every month. That's a very different feeling from watching a loan balance go down.",
     name: "Daniël V.",
     role: "Vehicle finance customer, Rotterdam",
   },
   {
     quote:
-      "What convinced me was seeing the actual asset behind my investment — registration, lease term, monthly income. Nothing abstract.",
+      "What convinced me was the separation. My money bought a named vehicle held by its own entity — not a line on someone's balance sheet.",
     name: "Amara O.",
     role: "Investor since 2024",
   },
   {
     quote:
-      "It happens to align with my beliefs, but honestly I'd have chosen it anyway. The terms are simply better than my bank's.",
+      "The rent went down as I bought more of the car. Nobody had ever offered me an agreement that got cheaper over time.",
     name: "Sofie B.",
     role: "Motorcycle finance customer, Antwerp",
   },
@@ -245,9 +397,9 @@ export const testimonials = [
 
 export const stats = [
   { value: 42, suffix: "M", prefix: "€", label: "Assets financed" },
-  { value: 3800, suffix: "+", label: "Vehicles on lease" },
+  { value: 3800, suffix: "+", label: "Vehicles co-owned" },
   { value: 12, suffix: "K+", label: "Investors and customers" },
-  { value: 100, suffix: "%", label: "Asset-backed agreements" },
+  { value: 100, suffix: "%", label: "Of funds used to buy vehicles" },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -260,42 +412,52 @@ export const faqs: Faq[] = [
   {
     question: "Is this only for Muslims?",
     answer:
-      "No. Anyone can use our products. Our financing follows Islamic finance principles, which makes it a genuinely ethical alternative for everyone — regardless of belief.",
+      "No. Anyone can use our products. The structure follows Islamic finance principles, which makes it a genuinely ethical alternative for everyone — regardless of belief.",
   },
   {
-    question: "How do investments work?",
+    question: "What can my money be used for?",
     answer:
-      "Investors own real assets that generate lease income. You buy a share of a specific vehicle, that vehicle is leased to a customer, and the net lease income is distributed to owners each month in proportion to their share.",
+      "One thing only: purchasing vehicles for lease. Funds are never used for our operating costs, never lent out, never pooled across the business and never reinvested elsewhere. Each vehicle is owned by a dedicated SPV whose only activity is holding and leasing that asset.",
   },
   {
-    question: "What makes this different from a normal loan?",
+    question: "What is an SPV and why does it matter?",
     answer:
-      "Traditional finance lends money and charges interest on the debt. We finance and invest through real assets and shared ownership: we buy the asset, you lease it, and ownership transfers over the agreed term.",
+      "A special purpose vehicle is a separate legal entity constituted to do exactly one thing — here, to own and lease specific vehicles. Because it is separate from our operating company and carries no other liabilities, the structure is designed so the assets stay with their owners independently of us.",
+  },
+  {
+    question: "How does the financing actually work?",
+    answer:
+      "Through diminishing Musharakah combined with Ijarah. You and the SPV buy the vehicle together, so you are a real co-owner from day one. The SPV leases you its share, and each monthly payment covers rent for that share plus the purchase of a slice of it. As the SPV's share shrinks, the rent shrinks with it, until you own 100%.",
+  },
+  {
+    question: "What is in my monthly payment?",
+    answer:
+      "Two separate components, accounted for separately: rent for the share you do not yet own, and a payment that buys more of that share. The ownership component stays level; the rent falls every month as our stake decreases.",
+  },
+  {
+    question: "Do you share the risk, or just the profit?",
+    answer:
+      "Both. Because we hold a real ownership share, we carry ownership risks in proportion to it — total loss, structural defects and depreciation while we co-own. You remain responsible for negligence, misuse, fines, fuel and routine running costs.",
+  },
+  {
+    question: "What happens if I want to exit early?",
+    answer:
+      "The vehicle is valued using the method agreed at the outset. It is either sold or one party buys out the other's share, and proceeds are distributed according to ownership shares at that moment. No break fee, no penalty interest.",
+  },
+  {
+    question: "How do investments generate a return?",
+    answer:
+      "Investors fund an SPV that co-owns vehicles. The rent paid on the SPV's share is distributed monthly in proportion to each investor's stake. Because rent tracks a shrinking ownership share, income from a single asset declines across its term.",
   },
   {
     question: "Are returns guaranteed?",
     answer:
-      "No. Returns depend on actual asset performance. Lease income can be affected by customer payment behaviour, vehicle downtime and resale values. Your capital is at risk.",
+      "No. Returns depend on actual asset performance and your capital is at risk. Rental income can be affected by customer payment behaviour, vehicle downtime, depreciation and resale values.",
   },
   {
     question: "Which vehicles can I finance?",
     answer:
       "Today we finance cars, motorcycles, boats and light commercial vehicles across the EU. Home finance, business finance and takaful are on our roadmap.",
-  },
-  {
-    question: "What happens if I want to end my agreement early?",
-    answer:
-      "You can settle early at any point. You pay the outstanding acquisition amount, not a penalty — because there is no interest to unwind.",
-  },
-  {
-    question: "How is my money protected?",
-    answer:
-      "Assets are held in a ring-fenced structure separate from our operating company, and ownership records are maintained per asset. Independent oversight reviews both our structures and our reporting.",
-  },
-  {
-    question: "How do I get started?",
-    answer:
-      "Choose a vehicle or an investment, complete a short online application, and our team confirms the structure with you before anything is signed.",
   },
 ];
 

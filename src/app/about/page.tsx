@@ -63,16 +63,23 @@ export default function AboutPage() {
               it.
             </p>
             <p>
-              We started from a different question: what if the thing being financed was the
-              asset itself? We buy the vehicle, we own it, and we lease it to you on terms fixed
-              at the start. Investors fund those assets and share in what they earn. Nobody is
-              charged interest on a balance that compounds while they struggle.
+              We started from a different question: what if you owned the thing from the
+              beginning? So we buy the vehicle with you rather than for you. You hold a real
+              share from day one, we lease you ours, and each payment buys a slice of it until
+              nothing is left to buy. Because we co-own the asset, we carry its risks alongside
+              you — not just its upside.
             </p>
             <p>
-              This structure follows internationally recognised Islamic finance principles. That
-              is a genuine benefit — but it is not a membership requirement. Our customers and
-              investors come from every background, and they choose us because the terms are
-              better and the documents are readable.
+              Every euro that funds a vehicle is held by a dedicated SPV and used for one thing:
+              purchasing that vehicle. It never funds our salaries, never gets lent out and never
+              sits on our balance sheet. That constraint is the whole point.
+            </p>
+            <p>
+              The structure — diminishing Musharakah combined with Ijarah — follows
+              internationally recognised Islamic finance principles. That is a genuine benefit,
+              but it is not a membership requirement. Our customers and investors come from every
+              background, and they choose us because the terms are better and the documents are
+              readable.
             </p>
             <p className="text-foreground">
               We began with vehicles — cars, motorcycles, boats and vans — because they are

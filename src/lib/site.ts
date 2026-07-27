@@ -34,7 +34,7 @@ export type NavItem = {
 export const mainNav: NavItem[] = [
   { label: "Vehicle Finance", href: "/products/vehicle-finance" },
   { label: "Invest", href: "/products/asset-investments" },
-  { label: "How it works", href: "/#how-it-works" },
+  { label: "Structure", href: "/structure" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
 ];
@@ -45,7 +45,6 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: "Vehicle Finance", href: "/products/vehicle-finance" },
       { label: "Asset Investments", href: "/products/asset-investments" },
-      { label: "How it works", href: "/#how-it-works" },
       { label: "Coming soon", href: "/#roadmap" },
     ],
   },
@@ -60,6 +59,8 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
   {
     title: "Resources",
     items: [
+      { label: "How the structure works", href: "/structure" },
+      { label: "Where your money goes", href: "/structure#safeguards" },
       { label: "FAQ", href: "/faq" },
       { label: "Investor dashboard", href: "/#dashboard" },
     ],

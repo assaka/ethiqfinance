@@ -5,6 +5,7 @@ const routes = [
   { path: "", priority: 1 },
   { path: "/products/vehicle-finance", priority: 0.9 },
   { path: "/products/asset-investments", priority: 0.9 },
+  { path: "/structure", priority: 0.8 },
   { path: "/about", priority: 0.7 },
   { path: "/faq", priority: 0.7 },
   { path: "/contact", priority: 0.6 },

@@ -4,6 +4,7 @@ import { TrustSection } from "@/components/home/trust-section";
 import { StatsBand } from "@/components/home/stats-band";
 import { ProductsSection } from "@/components/home/products-section";
 import { HowItWorks } from "@/components/home/how-it-works";
+import { CapitalSafeguards } from "@/components/home/capital-safeguards";
 import { WhyChooseUs } from "@/components/home/why-choose-us";
 import { DashboardPreview } from "@/components/home/dashboard-preview";
 import { Testimonials } from "@/components/home/testimonials";
@@ -52,6 +53,7 @@ export default function HomePage() {
       <StatsBand />
       <ProductsSection />
       <HowItWorks />
+      <CapitalSafeguards />
       <WhyChooseUs />
       <DashboardPreview />
       <Testimonials />

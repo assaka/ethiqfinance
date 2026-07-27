@@ -27,6 +27,11 @@
   --accent-soft: #ecfdf5;
   --accent-contrast: #ffffff;
 
+  /* Chart series — validated for CVD separation and contrast against the
+     surface in both modes. Do not substitute by eye. */
+  --chart-1: #10b981; /* the customer's share */
+  --chart-2: #6366f1; /* the SPV's share */
+
   /* Elevation */
   --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
   --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 24px 48px -20px rgb(15 23 42 / 0.22);
@@ -52,6 +57,10 @@
   --accent-soft: #072a20;
   --accent-contrast: #04231a;
 
+  /* Re-stepped for the dark surface, not flipped. */
+  --chart-1: #0ea97a;
+  --chart-2: #6366f1;
+
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
   --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 48px -20px rgb(0 0 0 / 0.75);
 }
@@ -75,6 +84,9 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
   --color-accent-contrast: var(--accent-contrast);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 

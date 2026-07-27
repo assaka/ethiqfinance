@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
 import { howItWorks } from "@/lib/content";
@@ -17,7 +19,7 @@ export function HowItWorks() {
       <SectionHeading
         eyebrow="How it works"
         title="A closed loop between investors and customers"
-        description="No lending, no interest. Capital buys a real asset, the asset earns a lease income, and that income is shared with the people who own it."
+        description="No lending, no interest. Capital buys a real vehicle, the customer co-owns it and rents the rest, and that rental income is shared with the people who funded it."
       />
 
       <div className="relative mt-16">
@@ -74,6 +76,19 @@ export function HowItWorks() {
           })}
         </ol>
       </div>
+
+      <Reveal className="mt-14 text-center">
+        <Link
+          href="/structure"
+          className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-foreground"
+        >
+          See the full structure, with worked numbers
+          <ArrowRight
+            className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </Link>
+      </Reveal>
     </Section>
   );
 }
