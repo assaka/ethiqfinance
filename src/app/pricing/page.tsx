@@ -23,9 +23,9 @@ const faqs = [
       "If you already have an insurer and a garage you trust, Essential gives you the lowest monthly figure and full control. If you would rather have one predictable number and never think about road tax or a service bill again, choose Complete. The total cost over the term works out about the same either way.",
   },
   {
-    question: "Is Complete an operational lease?",
+    question: "Do I own the vehicle on both plans?",
     answer:
-      "No, and we are careful not to call it one. In an operational lease you hand the vehicle back at the end and own nothing. With both of our plans you own the vehicle outright when the term finishes — Complete simply bundles the running costs into your fixed payment.",
+      "Yes. Essential and Complete follow exactly the same ownership schedule — your share grows every month and you own 100% at the end of the term. The plans differ only in whether the running costs are bundled into your fixed payment or arranged by you.",
   },
   {
     question: "Can I switch between plans?",
