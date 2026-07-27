@@ -74,7 +74,7 @@ const faqs = [
   {
     question: "What can my investment be used for?",
     answer:
-      "Purchasing the specific vehicle you invested in — and nothing else. Funds never cover our operating costs, are never lent out, are never pooled across the business and are never reinvested elsewhere. Each asset sits in a dedicated SPV whose only activity is owning and leasing it.",
+      "Purchasing the specific vehicle you invested in — and nothing else. Funds never cover our operating costs, are never lent out, are never pooled across the business and are never reinvested elsewhere. Each asset sits in a dedicated Special Purpose Vehicle whose only activity is owning and leasing it.",
   },
   {
     question: "Why does income from one asset decline over its term?",

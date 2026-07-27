@@ -70,7 +70,7 @@ export default function AboutPage() {
               you — not just its upside.
             </p>
             <p>
-              Every euro that funds a vehicle is held by a dedicated SPV and used for one thing:
+              Every euro that funds a vehicle is held by a dedicated Special Purpose Vehicle and used for one thing:
               purchasing that vehicle. It never funds our salaries, never gets lent out and never
               sits on our balance sheet. That constraint is the whole point.
             </p>

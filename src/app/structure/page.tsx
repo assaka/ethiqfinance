@@ -8,12 +8,14 @@ import { Reveal } from "@/components/ui/reveal";
 import { OwnershipChart } from "@/components/structure/ownership-chart";
 import { PaymentChart } from "@/components/structure/payment-chart";
 import { CapitalSafeguards } from "@/components/home/capital-safeguards";
+import { ExampleScenarios } from "@/components/examples/example-scenarios";
 import { CtaBand } from "@/components/home/cta-band";
 import {
   contracts,
   earlyExit,
   example,
   fundingSources,
+  moneyFlow,
   riskAllocation,
   structureStages,
 } from "@/lib/content";
@@ -120,8 +122,8 @@ export default function StructurePage() {
             <Card className="h-full">
               <h3 className="text-lg font-semibold">What you pay each month</h3>
               <p className="mt-2 text-[0.9375rem] text-foreground-muted">
-                The ownership instalment stays level. The rent falls with our share — so the
-                total payment gets smaller over time.
+                The total never changes. Inside it, the rent shrinks with our share and the
+                ownership portion grows to fill the gap.
               </p>
               <div className="mt-7">
                 <PaymentChart />
@@ -132,10 +134,10 @@ export default function StructurePage() {
 
         <Reveal className="mt-8">
           <p className="rounded-2xl border border-line bg-surface p-6 text-[0.9375rem] leading-relaxed text-foreground-muted">
-            <strong className="font-semibold text-foreground">Why the rent falls.</strong> Rent is
-            charged for using the share you do not yet own. Once you own more of the vehicle,
-            there is less of ours left to rent — so charging the same amount every month would
-            mean charging you for something you already own.
+            <strong className="font-semibold text-foreground">Why the split moves.</strong> Rent is
+            charged only for the share you do not yet own. Once you own more of the vehicle there
+            is less of ours left to rent — charging rent on the whole car would mean charging you
+            for something already yours. Your payment stays the same; what it buys does not.
           </p>
         </Reveal>
       </Section>
@@ -191,11 +193,51 @@ export default function StructurePage() {
         </Reveal>
       </Section>
 
+      <ExampleScenarios />
+
       {/* ---------------------------------------------------------------- */}
       <CapitalSafeguards />
 
       {/* ---------------------------------------------------------------- */}
       <Section size="wide">
+        <SectionHeading
+          eyebrow="Who pays whom"
+          title="Rent belongs to the owner, not to us"
+          description="Ethiq arranges the agreement and runs the servicing, but it does not own your vehicle — so it cannot lease it to you. Rent is paid to the SPV that does."
+        />
+
+        <ol className="mt-14 grid gap-6 lg:grid-cols-3">
+          {moneyFlow.map((stage, i) => {
+            const Icon = stage.icon;
+            return (
+              <Reveal as="li" key={stage.title} index={i} className="h-full">
+                <Card className="flex h-full flex-col">
+                  <IconBadge tone={stage.tone}>
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </IconBadge>
+                  <h3 className="mt-5 text-lg font-semibold">{stage.title}</h3>
+                  <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-foreground-muted">
+                    {stage.description}
+                  </p>
+                </Card>
+              </Reveal>
+            );
+          })}
+        </ol>
+
+        <Reveal className="mt-8">
+          <p className="rounded-2xl border border-line bg-surface-muted p-6 text-sm leading-relaxed text-foreground-muted">
+            <strong className="font-semibold text-foreground">Why this matters.</strong> If we
+            took the rent as our own income we would be leasing an asset we do not own — which is
+            exactly the defect that turns a partnership back into a loan. Our fee is charged to
+            the SPV for work actually performed, is disclosed in full, and is never an extra line
+            on your monthly payment.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section size="wide" tone="muted">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <IconBadge>

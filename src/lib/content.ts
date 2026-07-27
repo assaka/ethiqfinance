@@ -41,7 +41,7 @@ export const trustPillars: Feature[] = [
   {
     title: "Asset-Backed",
     description:
-      "Every euro buys a real, registered vehicle held by a dedicated SPV — never abstract debt.",
+      "Every euro buys a real, registered vehicle held by a dedicated Special Purpose Vehicle — never abstract debt.",
     icon: ShieldCheck,
   },
   {
@@ -76,13 +76,13 @@ export const products: Product[] = [
     summary:
       "Buy your car, motorcycle or boat together with us — then buy out our share month by month until you own all of it.",
     description:
-      "We purchase the vehicle jointly with you. You own your share from day one, we lease you ours, and each monthly payment buys a slice of our share. As our stake shrinks, so does the rent — until you own 100%.",
+      "We purchase the vehicle jointly with you. You own your share from day one, we lease you ours, and each monthly payment buys a slice of our share. The payment never changes — but every month more of it becomes ownership and less of it is rent, until you own 100%.",
     href: "/products/vehicle-finance",
     cta: "Learn more",
     points: [
       "Co-ownership from day one — your share is real, not promised",
       "Monthly payment split transparently into rent and ownership",
-      "Rent falls every month as our share shrinks",
+      "One fixed monthly payment for the entire term",
       "Exit any time by valuation — no interest, no break fee",
     ],
     icon: Car,
@@ -99,7 +99,7 @@ export const products: Product[] = [
     cta: "Explore investments",
     points: [
       "Capital is committed to a named vehicle, nothing else",
-      "Assets held by a dedicated SPV, separate from our balance sheet",
+      "Assets held by a dedicated Special Purpose Vehicle, separate from our balance sheet",
       "Monthly distributions from real rental income",
       "Genuine risk sharing — returns follow the asset, not a promise",
     ],
@@ -157,7 +157,7 @@ export const howItWorks: Step[] = [
     number: "01",
     title: "Investors fund the SPV",
     description:
-      "Capital is committed to a named vehicle and held by a dedicated SPV. It is never used for anything else.",
+      "Capital is committed to a named vehicle and held by a dedicated Special Purpose Vehicle. It is never used for anything else.",
     icon: Wallet,
   },
   {
@@ -178,7 +178,7 @@ export const howItWorks: Step[] = [
     number: "04",
     title: "Ownership and income transfer",
     description:
-      "Rental income is distributed to investors monthly. As the SPV's share shrinks, so does the rent — until the customer owns 100%.",
+      "Rent is collected by the SPV and distributed to its shareholders each month, alongside the capital they get back as the buy-out proceeds.",
     icon: ChartLine,
   },
 ];
@@ -191,7 +191,7 @@ export const capitalUse = {
   does: [
     "Purchases the specific vehicle it was committed to — and only that vehicle",
     "Sits with the SPV that holds legal title to that asset",
-    "Earns rental income, distributed to owners every month",
+    "Earns rent, paid to the SPV and distributed to its shareholders monthly",
   ],
   never: [
     "Funds our operating costs, salaries or marketing",
@@ -234,7 +234,7 @@ export const example = {
   companyShare: 80,
   termMonths: 48,
   /** Annual rental rate applied to the SPV's outstanding share value. */
-  rentalRate: 0.07,
+  rentalRate: 0.0625,
 };
 
 export const structureStages = [
@@ -259,42 +259,59 @@ export const structureStages = [
     name: "Buy it out, month by month",
     arabic: "Musharakah Mutanaqisah",
     description:
-      "Alongside the rent, each payment buys a slice of the SPV's share. Your ownership rises every month, the SPV's falls, and the rent falls with it — until you own 100%.",
+      "Alongside the rent, each payment buys a slice of the SPV's share. You pay the same amount every month — but the share of it going to ownership grows, until you own 100%.",
     icon: BadgeCheck,
   },
 ];
 
-/** Who carries which cost or risk, and why. */
+/**
+ * Who carries which cost or risk, and why.
+ *
+ * The classical Ijarah split: ownership risks — the ones tied to holding the
+ * asset rather than using it — stay with the owners, while the running costs
+ * of a vehicle in daily use sit with the person driving it. See the `example`
+ * rental rate: rent is priced to reward capital, not to fund a service package.
+ */
 export const riskAllocation = [
   {
     item: "Total loss or write-off",
     bearer: "shared" as const,
-    detail: "Borne by both owners in proportion to their shares at the time, backed by takaful cover.",
+    detail: "Borne by the owners in proportion to their shares at the time, backed by takaful cover.",
   },
   {
     item: "Manufacturing or structural defects",
     bearer: "shared" as const,
-    detail: "An ownership risk, so it follows ownership shares — not automatically pushed onto the customer.",
+    detail: "An ownership risk, so it follows ownership shares — never pushed onto the customer.",
   },
   {
-    item: "Depreciation while we co-own",
+    item: "Depreciation over the term",
     bearer: "shared" as const,
     detail: "We hold a real share, so we absorb our proportion of the fall in value.",
   },
   {
-    item: "Takaful / insurance cover",
+    item: "Major structural repair",
     bearer: "shared" as const,
-    detail: "Arranged by us as an ownership expense and charged in proportion to shares.",
+    detail: "Faults in the asset itself, as opposed to wear from use, remain with the owners.",
+  },
+  {
+    item: "Takaful / insurance cover",
+    bearer: "customer" as const,
+    detail: "Arranged through us at fleet rates, held in the owners' interest and paid by you as the user.",
+  },
+  {
+    item: "Servicing, maintenance and tyres",
+    bearer: "customer" as const,
+    detail: "Day-to-day upkeep of a vehicle in your hands, set out in the service agreement.",
+  },
+  {
+    item: "Road tax and periodic inspection",
+    bearer: "customer" as const,
+    detail: "A cost of keeping the vehicle on the road, which is what you are using it for.",
   },
   {
     item: "Fuel, charging and consumables",
     bearer: "customer" as const,
-    detail: "Ordinary running costs of using the vehicle.",
-  },
-  {
-    item: "Routine servicing and maintenance",
-    bearer: "customer" as const,
-    detail: "Day-to-day upkeep, set out in the service agreement.",
+    detail: "Created by use rather than by ownership — you buy the fuel you burn.",
   },
   {
     item: "Traffic fines and penalties",
@@ -304,7 +321,124 @@ export const riskAllocation = [
   {
     item: "Damage through negligence or misuse",
     bearer: "customer" as const,
-    detail: "Ownership risk covers ordinary use, not avoidable harm.",
+    detail: "Ownership risk covers ordinary wear, not avoidable harm.",
+  },
+];
+
+/**
+ * Worked scenarios. Every figure on the site is computed from these terms by
+ * `lib/schedule.ts` — nothing is typed in by hand, so the numbers stay
+ * internally consistent if the rate or a term changes.
+ */
+export type CustomerScenario = {
+  name: string;
+  vehicle: string;
+  category: string;
+  price: number;
+  customerShare: number;
+  termMonths: number;
+  note: string;
+  icon: typeof Car;
+};
+
+export const customerScenarios: CustomerScenario[] = [
+  {
+    name: "Yasmin, Utrecht",
+    vehicle: "Volkswagen Golf, 3 years old",
+    category: "Car",
+    price: 18000,
+    customerShare: 20,
+    termMonths: 36,
+    note: "Wanted a reliable commuter car without a loan hanging over her.",
+    icon: Car,
+  },
+  {
+    name: "Marek, Antwerp",
+    vehicle: "Yamaha Tracer 9",
+    category: "Motorcycle",
+    price: 9500,
+    customerShare: 20,
+    termMonths: 24,
+    note: "Short term, small ticket — owns it outright in two years.",
+    icon: Bike,
+  },
+  {
+    name: "Tom & Ilse, Friesland",
+    vehicle: "Beneteau Antares 8",
+    category: "Boat",
+    price: 65000,
+    customerShare: 25,
+    termMonths: 60,
+    note: "A larger contribution up front to keep the monthly payment down.",
+    icon: Sailboat,
+  },
+  {
+    name: "De Vries Installaties",
+    vehicle: "Ford Transit Custom",
+    category: "Light commercial",
+    price: 34000,
+    customerShare: 20,
+    termMonths: 48,
+    note: "A working van for a two-person plumbing business.",
+    icon: Truck,
+  },
+];
+
+export type InvestorScenario = {
+  label: string;
+  amount: number;
+  /** Index into `customerScenarios` — the asset being funded. */
+  asset: number;
+  note: string;
+};
+
+export const investorScenarios: InvestorScenario[] = [
+  {
+    label: "Testing the water",
+    amount: 1000,
+    asset: 1,
+    note: "A short 24-month asset returns capital quickly, which suits a first investment.",
+  },
+  {
+    label: "A single car",
+    amount: 5000,
+    asset: 3,
+    note: "A four-year van lease, with income and capital arriving every month.",
+  },
+  {
+    label: "A larger stake",
+    amount: 10000,
+    asset: 2,
+    note: "The longest term on offer, so income continues for five years.",
+  },
+];
+
+/**
+ * Where the customer's payment actually goes. Rent accrues to the SPV because
+ * the SPV owns the asset; Ethiq is its agent and is paid a separate,
+ * disclosed fee for the servicing work.
+ */
+export const moneyFlow = [
+  {
+    title: "You pay the SPV",
+    description:
+      "Your fixed monthly payment goes to the SPV that co-owns your vehicle, into a segregated collection account. We operate that account as the SPV's agent — the money is never ours.",
+    icon: Wallet,
+    tone: "accent" as const,
+  },
+  {
+    title: "The SPV pays its shareholders",
+    description:
+      "The rent portion is distributed to investors as income. The ownership portion returns their capital as your share of the vehicle grows.",
+    icon: Coins,
+    tone: "accent" as const,
+  },
+  {
+    title: "The SPV pays us a fee",
+    description:
+      "Ethiq earns a disclosed management fee from the SPV for arranging, servicing and reporting — a share of the rent, never a charge added on top of your payment.",
+    icon: Landmark,
+    tone: "neutral" as const,
   },
 ];
 
@@ -365,7 +499,7 @@ export const benefits: Feature[] = [
   },
   {
     title: "Ring-Fenced",
-    description: "Assets sit in dedicated SPVs and funds buy vehicles — nothing else, ever.",
+    description: "Assets sit in dedicated Special Purpose Vehicles and funds buy vehicles — nothing else, ever.",
     icon: Lock,
   },
 ];
@@ -389,7 +523,7 @@ export const testimonials = [
   },
   {
     quote:
-      "The rent went down as I bought more of the car. Nobody had ever offered me an agreement that got cheaper over time.",
+      "Same amount out of my account every month, but the share of it buying the bike kept growing. I could watch it happen.",
     name: "Sofie B.",
     role: "Motorcycle finance customer, Antwerp",
   },
@@ -417,7 +551,7 @@ export const faqs: Faq[] = [
   {
     question: "What can my money be used for?",
     answer:
-      "One thing only: purchasing vehicles for lease. Funds are never used for our operating costs, never lent out, never pooled across the business and never reinvested elsewhere. Each vehicle is owned by a dedicated SPV whose only activity is holding and leasing that asset.",
+      "One thing only: purchasing vehicles for lease. Funds are never used for our operating costs, never lent out, never pooled across the business and never reinvested elsewhere. Each vehicle is owned by a dedicated Special Purpose Vehicle whose only activity is holding and leasing that asset.",
   },
   {
     question: "What is an SPV and why does it matter?",
@@ -432,7 +566,7 @@ export const faqs: Faq[] = [
   {
     question: "What is in my monthly payment?",
     answer:
-      "Two separate components, accounted for separately: rent for the share you do not yet own, and a payment that buys more of that share. The ownership component stays level; the rent falls every month as our stake decreases.",
+      "The total is fixed for the whole term, and inside it sit two separately accounted components: rent for the share you do not yet own, and a payment that buys more of that share. As your ownership grows there is less left to rent, so month by month less of the same payment is rent and more of it is ownership.",
   },
   {
     question: "Do you share the risk, or just the profit?",

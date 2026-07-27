@@ -46,21 +46,19 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#060b16" },
-  ],
+  // Light is the default presentation, so the browser chrome matches it.
+  themeColor: "#ffffff",
 };
 
 /**
  * Applies the saved theme before first paint so there is no flash of the
- * wrong palette. Deliberately tiny and dependency-free.
+ * wrong palette. The site is light by default — dark is opt-in via the
+ * toggle rather than inherited from the OS, so first-time visitors always
+ * land on the intended presentation.
  */
 const themeScript = `
 (function(){try{
-  var stored = localStorage.getItem('theme');
-  var dark = stored ? stored === 'dark'
-    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = localStorage.getItem('theme') === 'dark';
   document.documentElement.classList.toggle('dark', dark);
   document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
 }catch(e){}})();

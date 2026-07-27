@@ -16,7 +16,7 @@ const product = products[0];
 export const metadata: Metadata = {
   title: "Vehicle Finance",
   description:
-    "Buy your car, motorcycle or boat jointly with us and buy out our share month by month. Co-ownership from day one, rent that falls as you own more, no interest and no penalties.",
+    "Buy your car, motorcycle or boat jointly with us and buy out our share month by month. Co-ownership from day one, one fixed monthly payment, no interest and no penalties.",
   alternates: { canonical: "/products/vehicle-finance" },
 };
 
@@ -38,7 +38,7 @@ const steps = [
   {
     title: "Buy us out, month by month",
     description:
-      "Each payment also purchases a slice of our share. Your ownership climbs, our share falls, the rent falls with it, and at the end you own 100%.",
+      "Each payment also purchases a slice of our share. The amount you pay never changes — but the part of it buying ownership grows every month, until you own 100%.",
   },
 ];
 
@@ -46,7 +46,7 @@ const comparison = [
   { point: "What is financed", traditional: "Money lent to you", ethiq: "A share of the vehicle, owned jointly" },
   { point: "Your position on day one", traditional: "A debtor with a liability", ethiq: "A registered co-owner with equity" },
   { point: "Cost structure", traditional: "Interest on outstanding debt", ethiq: "Rent on the share you don't yet own" },
-  { point: "How payments change", traditional: "Fixed or rising with rates", ethiq: "Falls as your ownership grows" },
+  { point: "How payments change", traditional: "Fixed or rising with rates", ethiq: "Fixed — but buys more ownership each month" },
   { point: "Who carries ownership risk", traditional: "You, entirely", ethiq: "Both owners, in proportion to shares" },
   { point: "Early settlement", traditional: "Break fees are common", ethiq: "Valuation and buy-out, no penalty" },
 ];
@@ -59,7 +59,7 @@ const faqs = [
   },
   {
     question: "How much do I need to contribute?",
-    answer: `Your contribution is your opening ownership share, so it is never a lost 'deposit'. It typically starts around ${example.customerShare}% of the vehicle value — a larger share means less to rent and a lower monthly payment.`,
+    answer: `Your contribution is your opening ownership share, so it is never a lost 'deposit'. It typically starts around ${example.customerShare}% of the vehicle value — a larger share means less to rent, so a lower fixed monthly payment.`,
   },
   {
     question: "Whose name is the vehicle registered in?",
@@ -69,7 +69,7 @@ const faqs = [
   {
     question: "Who insures and maintains the vehicle?",
     answer:
-      "Takaful cover is arranged for the owners as an ownership expense, shared in proportion to shares. Fuel, charging, routine servicing, fines and any damage through misuse are yours as the user.",
+      "Takaful is arranged through us at fleet rates and held in the owners' interest, but paid by you as the user — along with servicing, road tax, fuel, fines and any damage through misuse. Faults in the asset itself, and the risk of write-off or depreciation, stay with the owners.",
   },
   {
     question: "What if the vehicle is written off?",
